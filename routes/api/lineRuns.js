@@ -444,6 +444,70 @@ privateRouter.put('/:runid', function (req, res, next) {
 })
 
 /**
+ * @api {get} /scoringSheet Generate scoring sheet for list of runs
+ * @apiName GetScoringSheet
+ * @apiGroup Get
+ * @apiVersion 1.0.1
+ *
+ * @apiParam {Object[]}     [runs] Array of runs to generate scoring sheet for
+ *
+ * @apiSuccess (200) {String}   "Ok"
+ *
+ * @apiError (400) {String} msg The error message
+ */
+publicRouter.get('/scoresheet', getScoringSheets)
+
+function getScoringSheets(req, res, next) {
+  const competition = req.query.competition || req.params.competition
+
+  if (competition == null || competition.constructor !== String) {
+    return;
+  }
+
+  var query = lineRun.find({
+    competition: competition
+  })
+
+  query.select("competition round team field map startTime")
+  query.populate([
+    {
+      path  : "round",
+      select: "name"
+    },
+    {
+      path  : "team",
+      select: "name"
+    },
+    {
+      path  : "field",
+      select: "name"
+    },
+    {
+      path  : "map",
+      select: "name height width length numberOfDropTiles finished startTile tiles"
+    }
+  ])
+
+  query.lean().exec(function (err, dbRuns) {
+    if (err) {
+      logger.error(err)
+      res.status(400).send({
+        msg: "Could not get runs"
+      })
+    } else if (dbRuns) {
+      for (let i = 0; i < dbRuns.length; i++) {
+        console.log(dbRuns[i])
+      }
+    }
+  })
+
+  res.status(200).send({
+    msg: "Generated!"
+  })
+}
+module.exports.getScoringSheets = getScoringSheets
+
+/**
  * @api {delete} /runs/line/:runid Delete run
  * @apiName DeleteRun
  * @apiGroup Run

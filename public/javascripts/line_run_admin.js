@@ -52,7 +52,13 @@ angular.module("RunAdmin", ['ngAnimate', 'ui.bootstrap', 'ui.bootstrap.datetimep
             "/Line/maps").then(function (response) {
     $scope.maps = response.data
   })
-  
+
+  $scope.generateScoringSheet = function () {
+    $http.get("/api/competitions/" + competitionId + "/line/runs/scoresheet").then(function (response) {
+      alert(response.data);
+    })
+  }
+
   $scope.addRun = function () {
     if ($scope.run === undefined ||
         $scope.run.round === undefined ||
