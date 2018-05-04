@@ -55,7 +55,7 @@ angular.module("RunAdmin", ['ngAnimate', 'ui.bootstrap', 'ui.bootstrap.datetimep
 
   $scope.generateScoringSheet = function () {
     $http.get("/api/competitions/" + competitionId + "/line/runs/scoresheet").then(function (response) {
-      alert(response.data);
+      response.pipe(response)
     })
   }
 
