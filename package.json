@@ -22,6 +22,7 @@
     "express-session": "^1.10.3",
     "jade": "~1.8.2",
     "jsdoc": "^3.2.2",
+    "jsqr": "^1.0.4",
     "log4js": "^0.6.24",
     "mongoose": "^4.0.3",
     "mongoose-integer": "^0.1.1",
