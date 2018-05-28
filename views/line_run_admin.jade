@@ -12,6 +12,7 @@ append scripts
   script(src = '/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js')
   script(src = '/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js')
   script(src='/javascripts/line_run_admin.js')
+  script(src='/components/ng-file-upload/ng-file-upload-all.min.js')
 
 append css
   link(rel='stylesheet' href='/components/angular-bootstrap/ui-bootstrap-csp.css')
@@ -71,7 +72,15 @@ block content
               button(ng-click='addRun()') Add Run
       a(ng-href='/admin/{{competitionId}}/line/runs/bulk') Bulk Registration
       br
-      button(ng-click="generateScoringSheet()" class='btn btn-info') Generate Scoring Sheets
+      a(ng-href='/api/competitions/{{competitionId}}/line/runs/scoresheet') Generate Scoring Sheets
+      br
+      form(style="")
+        input(type='file', ngf-select='', ng-model='files', ngf-max-size='5MB', required='', ngf-accept="'image/*'", ngf-pattern="'image/*'",  ngf-multiple='true' capture="environment")
+        br
+        br
+        button.btn.btn-info(ng-click='uploadSheets(files)') Upload
+        button.btn.btn-warning(ng-click='files = null', ng-show='files') Cancel
+
       br
       a(ng-href='/admin/{{competitionId}}/line/runs/monitor') Runs Monitor
       center

@@ -1,7 +1,13 @@
 var socket;
-angular.module("RunAdmin", ['ngAnimate', 'ui.bootstrap', 'ui.bootstrap.datetimepicker']).controller('RunAdminController', ['$scope', '$http', '$log', '$location', function ($scope, $http, $log, $location) {
+angular.module(
+  "RunAdmin",
+  ['ngAnimate', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ngFileUpload']
+).controller(
+  'RunAdminController',
+  ['$scope', '$http', 'Upload', '$log', '$location', function ($scope, $http, Upload, $log, $location) {
+
   $scope.competitionId = competitionId
-  
+
   updateRunList();
   launchSocketIo();
   
@@ -55,8 +61,23 @@ angular.module("RunAdmin", ['ngAnimate', 'ui.bootstrap', 'ui.bootstrap.datetimep
 
   $scope.generateScoringSheet = function () {
     $http.get("/api/competitions/" + competitionId + "/line/runs/scoresheet").then(function (response) {
-      response.pipe(response)
+      response.data;
     })
+  }
+
+  $scope.uploadSheets = function(files){
+    console.log("Files", files);
+    for (let i = 0; i < files.length; i++) {
+      Upload.upload({
+        url: '/api/runs/line/scoresheet/' + competitionId,
+        data: {file: files[i]},
+      }).then(function (resp) {
+            console.log('Succ', resp);
+          }, function (resp) {
+          }, function (evt) {
+          }
+        );
+    }
   }
 
   $scope.addRun = function () {
