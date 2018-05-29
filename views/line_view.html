@@ -65,6 +65,7 @@
                                     </span>
                                 </div>
                             </p>
+                            <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/lop_{{$index}}">
                             <hr ng-show="!$last" />
                         </div>
 
@@ -89,6 +90,7 @@
                                 </button>
                             </span>
                         </div>
+                        <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/rescuedLive">
                     </div>
                     <hr>
                     <div class="card-block">
@@ -108,12 +110,14 @@
                                 </button>
                             </span>
                         </div>
+                        <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/rescuedDead">
                     </div>
                     <hr>
                     <div class="card-block">
                         <p class="card-text">Robot exited the evacuation zone after touching at least one victim: <span class="badge badge-info">20 points</span></p>
                         <input type="checkbox" ng-model="exitBonus" ng-change="changeExitBonus()" id="scoredrun" disabled><label class="checkbox" for="scoredrun">Success</label><br>
                     </div>
+                    <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/evacuationBonus">
                 </div>
             </div>
         </div>
@@ -145,6 +149,7 @@
                 <input type="radio" ng-model="visType" value="slider" checked id="slider"><label class="radio" for="slider">Slider</label>
                 <input type="radio" ng-model="visType" value="side" id="side-by-side"><label class="radio" for="side-by-side">Side-by-Side</label>
             </form>
+            <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/tiles">
         </div>
     </div>
     <div class="alert alert-success" style="margin:100 0 0 0;" role="alert">
@@ -164,6 +169,7 @@
                 <div class="hidden-sm-up">
                     <i class="fa fa-clock-o fa-2x" aria-hidden="true"> : {{minutes}} min {{seconds}} sec</i>
                 </div>
+                <img ng-src="/api/runs/line/scoresheetimg/{{runId}}/time">
             </div>
             <div class="col-md-6" ng-if='retired'>
                 <div class="hidden-xs-down">

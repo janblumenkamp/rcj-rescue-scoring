@@ -75,6 +75,7 @@ app.controller('ddController', ['$scope', '$uibModal', '$log', '$timeout', '$htt
     $http.get("/api/runs/line/" + runId +
               "?populate=true").then(function (response) {
       console.log(response.data);
+      $scope.runId = runId;
       $scope.LoPs = response.data.LoPs;
       $scope.evacuationLevel = response.data.evacuationLevel;
       $scope.exitBonus = response.data.exitBonus;
